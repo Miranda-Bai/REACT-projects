@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .demo {
+        margin: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="test"></div>
+    <!-- 先引入核心库 React-->
+    <script src="./ReactJS/react.development.js"></script>
+    <!-- 用于支持react操作DOM  ReactDOM-->
+    <script src="./ReactJS/react-dom.development.js"></script>
+    <!-- 将jsx转成js -->
+    <script src="./ReactJS/babel.min.js"></script>
+    <!-- 此处一定要写babel jsx只能有一个根标签 标签必须闭合-->
+    <script type="text/babel">
+      //1.创建组件
+      class Demo extends React.Component {
+        state = { isHot: true };
+        changeWeather = () => {
+          this.setState({ isHot: !this.state.isHot });
+        };
+        //写箭头函数和赋值语句可以保证this不丢
+        handleClick = () => {
+          // console.log(this.input1);
+          alert(this.input1.value);
+          this.input1.value = "";
+        };
+        handleBlur = () => {
+          alert(this.input2.value);
+          this.input2.value = "";
+        };
+        //会传入当前绑定的html标签元素
+        saveInput = (val) => {
+          this.input1 = val;
+          console.log("##",val);
+        };
+        // 如果 ref 回调函数是以内联函数的方式定义的，在更新过程中它会被执行两次，第一次传入参数 null，然后第二次会传入参数 DOM 元素。
+        //这是因为在每次渲染时会创建一个新的函数实例，所以 React 清空旧的 ref 并且设置新的。
+        //通过将 ref 的回调函数定义成 class 的绑定函数的方式可以避免上述问题，但是大多数情况下它是无关紧要的。
+        render() {
+          return (
+            <div className="demo">
+              <h1 onClick={this.changeWeather}>
+                tody's weather is {this.state.isHot ? "hot" : "cool"}
+              </h1>
+              <input
+                type="text"
+                placeholder="click button alter data"
+                ref={this.saveInput}
+              />
+              <button onClick={this.handleClick}>
+                click me to show left side data
+              </button>
+              <input
+                type="text"
+                placeholder="blur to alter data"
+                onBlur={this.handleBlur}
+                ref={(val) => {
+                  this.input2 = val;
+                }}
+              />
+            </div>
+          );
+        }
+      }
+      //2.渲染组件到页面
+      ReactDOM.createRoot(document.querySelector("#test")).render(<Demo />);
+    </script>
+  </body>
+</html>

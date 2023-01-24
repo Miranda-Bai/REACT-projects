@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .demo {
+        margin: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="test"></div>
+    <!-- 先引入核心库 React-->
+    <script src="./ReactJS/react.development.js"></script>
+    <!-- 用于支持react操作DOM  ReactDOM-->
+    <script src="./ReactJS/react-dom.development.js"></script>
+    <!-- 将jsx转成js -->
+    <script src="./ReactJS/babel.min.js"></script>
+    <!-- 此处一定要写babel jsx只能有一个根标签 标签必须闭合-->
+    <script type="text/babel">
+      //1.创建组件
+      class Demo extends React.Component {
+       /* 
+        React.createRef()调用后可以返回一个容器，该容器可以存储被ref所标识的节点
+        该容器是专人专用的
+       */
+        myRef = React.createRef() 
+       
+        handleClick = () => {
+          // console.log(this.myRef.current);
+          alert(this.myRef.current.value);
+          this.myRef.current.value = "";
+        };
+        render() {
+          return (
+            <div className="demo">
+              <input
+                type="text"
+                placeholder="click button alter data"
+                ref={this.myRef}
+              />
+              <button onClick={this.handleClick}>
+                click me to show left side data
+              </button>
+            </div>
+          );
+        }
+      }
+      //2.渲染组件到页面
+      ReactDOM.createRoot(document.querySelector("#test")).render(<Demo />);
+    </script>
+  </body>
+</html>
