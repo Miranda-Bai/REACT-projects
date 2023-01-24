@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .title {
+        background-color: orange;
+        width: 30%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="test"></div>
+    <!-- 先引入核心库 -->
+    <script src="./ReactJS/react.development.js"></script>
+    <!-- 用于支持react操作DOM -->
+    <script src="./ReactJS/react-dom.development.js"></script>
+    <!-- 将jsx转成js -->
+    <script src="./ReactJS/babel.min.js"></script>
+    <!-- 此处一定要写babel jsx只能有一个根标签 标签必须闭合-->
+    <script type="text/babel">
+      const myId = "MIranda";
+      const myData = "Good evening";
+      //1.创建虚拟DOM
+      const VDOM = (
+        <div>
+          <h1 id={myId.toLowerCase()} className="title">
+            <span style={{ color: "white", fontSize: "29px" }}>{myData}</span>
+          </h1>
+          <input type="text" />
+        </div>
+      );
+      //2.渲染虚拟DOM到页面
+      const root = ReactDOM.createRoot(document.querySelector("#test"));
+      root.render(VDOM);
+
+      /*
+      标签首字母
+      1.若小写字母开头，则将该标签转为html中同名元素，若html中无该标签对应的同名元素，则报错
+      2.若大写字母开头，React就去渲染对应的组件，若组件未定义则报错
+      */
+    </script>
+  </body>
+</html>

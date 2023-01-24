@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="test"></div>
+    <!-- 先引入核心库 -->
+    <script src="./ReactJS/react.development.js"></script>
+    <!-- 用于支持react操作DOM -->
+    <script src="./ReactJS/react-dom.development.js"></script>
+    <!-- 将jsx转成js -->
+    <script src="./ReactJS/babel.min.js"></script>
+    <!-- 此处一定要写babel -->
+    <script type="text/babel">
+      //1.创建虚拟DOM
+      const VDOM = (
+        <h1 id="title">
+          <span>Hello React</span>
+        </h1>
+      ); /*此处一定不要写引号，因为不是字符串，是虚拟DOM*/
+      //2.渲染虚拟DOM到页面
+      //   ReactDOM.render(VDOM, document.querySelector("#test"));
+      // 新写法
+      const root = ReactDOM.createRoot(document.querySelector("#test"));
+      root.render(VDOM);
+    </script>
+  </body>
+</html>

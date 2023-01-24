@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="test"></div>
+    <!-- 先引入核心库 -->
+    <script src="./ReactJS/react.development.js"></script>
+    <!-- 用于支持react操作DOM -->
+    <script src="./ReactJS/react-dom.development.js"></script>
+
+    <script type="text/javascript">
+      //1.创建虚拟DOM
+      //createElement(标签名，标签属性对象，标签体内容)
+      const VDOM = React.createElement(
+        "h1",
+        { id: "title" },
+        React.createElement("span", {}, "hello react")
+      );
+      //2.渲染虚拟DOM到页面
+      const root = ReactDOM.createRoot(document.querySelector("#test"));
+      root.render(VDOM);
+    </script>
+  </body>
+</html>
