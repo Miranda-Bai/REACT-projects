@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div {
+        margin: 10px;
+      }
+      button {
+        margin-right: 10px;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="test"></div>
+    <!-- 先引入核心库 React-->
+    <script src="./ReactJS/react.development.js"></script>
+    <!-- 用于支持react操作DOM  ReactDOM-->
+    <script src="./ReactJS/react-dom.development.js"></script>
+    <!-- 将jsx转成js -->
+    <script src="./ReactJS/babel.min.js"></script>
+    <!-- 此处一定要写babel jsx只能有一个根标签 标签必须闭合-->
+    <script type="text/babel">
+      class Count extends React.Component {
+        constructor(props) {
+          console.log("count-constructor");
+          super(props);
+          this.state = { count: 0 };
+        }
+
+        add = () => {
+          const { count } = this.state;
+          //1.setState触发正常更新
+          this.setState({ count: count + 1 });
+        };
+        delete = () => {
+          root.unmount();
+        };
+        force = () => {
+          //2.强制更新，不会走shouldComponentUpdate，直接走componentWillUpdate
+          this.forceUpdate();
+        };
+        componentWillMount() {
+          console.log("count-componentWillMount");
+        }
+        componentDidMount() {
+          console.log("count-componentDidMount");
+        }
+        componentWillUnmount() {
+          console.log("count-componentWillUnmount");
+        }
+        //return false则不更新不调用render
+        shouldComponentUpdate() {
+          console.log("count-shouldComponentUpdate");
+          return true;
+        }
+        componentWillUpdate() {
+          console.log("count-componentWillUpdate");
+        }
+        componentDidUpdate() {
+          console.log("count-componentDidUpdate");
+        }
+        render() {
+          console.log("count-render");
+          return (
+            <div>
+              <h2>sum is {this.state.count}</h2>
+              <button onClick={this.add}>click to plus 1</button>
+              <button onClick={this.delete}>delete component</button>
+              <br />
+              <button onClick={this.force}>
+                do not change state, but want to force update the component
+              </button>
+            </div>
+          );
+        }
+      }
+      
+      const root = ReactDOM.createRoot(document.querySelector("#test"));
+      root.render(<Count />);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .login-form {
+        padding: 30px;
+      }
+      input {
+        margin: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="test"></div>
+    <!-- 先引入核心库 React-->
+    <script src="./ReactJS/react.development.js"></script>
+    <!-- 用于支持react操作DOM  ReactDOM-->
+    <script src="./ReactJS/react-dom.development.js"></script>
+    <!-- 将jsx转成js -->
+    <script src="./ReactJS/babel.min.js"></script>
+    <!-- 此处一定要写babel jsx只能有一个根标签 标签必须闭合-->
+    <script type="text/babel">
+      /* 
+        高阶函数：如果一个函数符合下面规范中的任何一个，那该函数就是高阶函数
+          1.若A函数，接收的参数是一个函数，那么A就可以称之为高阶函数
+          2.若A函数，调用的返回值依然是一个函数，那么A就可以称之为高阶函数
+          常见的高阶函数有：Promise, setTimeout(),数组身上的很多方法都是,arr.map()...
+        
+        函数的柯里化：通过函数调用继续返回函数的方式，实现多次接受参数最后统一处理的函数编码形式
+      */
+      class Login extends React.Component {
+        //初始化state
+        state = { username: "", password: "" };
+        handleSubmit = (event) => {
+          event.preventDefault(); //阻止表单提交
+          const { username, password } = this.state;
+          alert(`${username}&${password}`);
+        };
+        saveFormData = (dataType, event) => {
+          this.setState({ [dataType]: event.target.value });
+        };
+        render() {
+          return (
+            <form
+              action="www.google.com"
+              className="login-form"
+              onSubmit={this.handleSubmit}
+            >
+              Username:
+              <input
+                type="text"
+                name="username"
+                onChange={(event) =>
+                  this.saveFormData("username", event)
+                }
+              />
+              <br />
+              Password:
+              <input
+                type="password"
+                name="password"
+                onChange={(event) =>
+                  this.saveFormData("password", event)
+                }
+              />
+              <button>Login</button>
+            </form>
+          );
+        }
+      }
+
+      ReactDOM.createRoot(document.querySelector("#test")).render(<Login />);
+    </script>
+  </body>
+</html>

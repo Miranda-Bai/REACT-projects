@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .list {
+        width: 200px;
+        height: 150px;
+        background-color: skyblue;
+        overflow: auto;
+      }
+      .news {
+        height: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="test"></div>
+    <!-- 先引入核心库 React-->
+    <script src="./ReactJS/react.development.js"></script>
+    <!-- 用于支持react操作DOM  ReactDOM-->
+    <script src="./ReactJS/react-dom.development.js"></script>
+    <!-- 将jsx转成js -->
+    <script src="./ReactJS/babel.js"></script>
+    <!-- 此处一定要写babel jsx只能有一个根标签 标签必须闭合-->
+    <script type="text/babel">
+      /* 让新闻更新的时候，始终保持在用户看的区域 */
+      class NewsList extends React.Component {
+        state = { newsArr: [] };
+        componentDidMount() {
+          this.timer = setInterval(() => {
+            const { newsArr } = this.state;
+            //模拟一条新闻 新增一条新闻
+            const news = "News" + (newsArr.length + 1);
+            //更新状态
+            this.setState({ newsArr: [news, ...newsArr] });
+          }, 1000);
+        }
+        /* 
+          getSnapshotBeforeUpdate() 在最近一次渲染输出（提交到 DOM 节点）之前调用。
+          它使得组件能在发生更改之前从 DOM 中捕获一些信息（例如，滚动位置）。
+          此生命周期方法的任何返回值将作为参数传递给 componentDidUpdate()。
+          此用法并不常见，但它可能出现在 UI 处理中，如需要以特殊方式处理滚动位置的聊天线程等。
+        */
+        //应返回 snapshot 的值（或 null）
+        getSnapshotBeforeUpdate() {
+          console.log("count-getSnapshotBeforeUpdate");
+
+          return this.refs.list.scrollHeight;
+        }
+        componentDidUpdate(preProps, preState, height) {
+          console.log("count-componentDidUpdate", preProps, preState, height);
+          //height是更新之前的高度
+          this.refs.list.scrollTop += this.refs.list.scrollHeight - height;
+        }
+        componentWillUnmount() {
+          clearInterval(this.timer);
+        }
+        render() {
+          return (
+            <div className="list" ref="list">
+              {this.state.newsArr.map((item, index) => {
+                return (
+                  <div className="news" key={index}>
+                    {item}
+                  </div>
+                );
+              })}
+            </div>
+          );
+        }
+      }
+
+      const root = ReactDOM.createRoot(document.querySelector("#test"));
+      root.render(<NewsList />);
+    </script>
+  </body>
+</html>

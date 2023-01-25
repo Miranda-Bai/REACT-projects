@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div {
+        margin: 10px;
+      }
+      button {
+        margin-right: 10px;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="test"></div>
+    <!-- 先引入核心库 React-->
+    <script src="./ReactJS/react.development.js"></script>
+    <!-- 用于支持react操作DOM  ReactDOM-->
+    <script src="./ReactJS/react-dom.development.js"></script>
+    <!-- 将jsx转成js -->
+    <script src="./ReactJS/babel.js"></script>
+    <!-- 此处一定要写babel jsx只能有一个根标签 标签必须闭合-->
+    <script type="text/babel">
+      /* 
+        新生命周期：
+          1.废弃了三个 componentWillMount componentWillUpdate componentWillReceiveProps
+          2.新增2个 getDerivedStateFromProps  getSnapshotBeforeUpdate
+      */
+      class Count extends React.Component {
+        constructor(props) {
+          console.log("count-constructor");
+          super(props);
+          this.state = { count: 0 };
+        }
+
+        add = () => {
+          const { count } = this.state;
+          //1.setState触发正常更新
+          this.setState({ count: count + 1 });
+          // console.log(this.state.name)
+        };
+        delete = () => {
+          root.unmount();
+        };
+        force = () => {
+          //2.强制更新，不会走shouldComponentUpdate，直接走componentWillUpdate
+          this.forceUpdate();
+        };
+        //返回状态对象state 对象，或null
+        //此方法适用于罕见的用例，即 state 的值在任何时候都取决于 props
+        static getDerivedStateFromProps(props) {
+          console.log("count-getDerivedStateFromProps", props);
+          return null;
+        }
+        componentDidMount() {
+          console.log("count-componentDidMount");
+        }
+        componentWillUnmount() {
+          console.log("count-componentWillUnmount");
+        }
+        //return false则不更新不调用render
+        shouldComponentUpdate() {
+          console.log("count-shouldComponentUpdate");
+          return true;
+        }
+        /* 
+          getSnapshotBeforeUpdate() 在最近一次渲染输出（提交到 DOM 节点）之前调用。
+          它使得组件能在发生更改之前从 DOM 中捕获一些信息（例如，滚动位置）。
+          此生命周期方法的任何返回值将作为参数传递给 componentDidUpdate()。
+          此用法并不常见，但它可能出现在 UI 处理中，如需要以特殊方式处理滚动位置的聊天线程等。
+        */
+        //应返回 snapshot 的值（或 null）
+         getSnapshotBeforeUpdate() {
+          console.log("count-getSnapshotBeforeUpdate");
+          return null;
+        }
+        componentDidUpdate(preProps, preState,snapshot) {
+          console.log("count-componentDidUpdate", preProps, preState,snapshot);
+        }
+        render() {
+          console.log("count-render");
+          return (
+            <div>
+              <h2>sum is {this.state.count}</h2>
+              <button onClick={this.add}>click to plus 1</button>
+              <button onClick={this.delete}>delete component</button>
+              <br />
+              <button onClick={this.force}>
+                do not change state, but want to force update the component
+              </button>
+            </div>
+          );
+        }
+      }
+
+      const root = ReactDOM.createRoot(document.querySelector("#test"));
+      root.render(<Count name="Miranda" />);
+    </script>
+  </body>
+</html>

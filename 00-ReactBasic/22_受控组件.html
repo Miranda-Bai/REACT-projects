@@ -26,14 +26,23 @@
     <script type="text/babel">
       //1.创建组件
       /*
-        
+        随着输入维护状态就是受控组件，相当于VUE中的双向数据绑定v-model
       */
       class Login extends React.Component {
+        //初始化state
+        state = { username: "", password: "" };
         handleSubmit = (event) => {
-          event.preventDefault();//阻止表单提交
-          const {username, password} = this
+          event.preventDefault(); //阻止表单提交
+          const {username, password} = this.state
           alert(`${username}&${password}`)
         };
+        saveUsername = (event) => {
+          // console.log(event.target.value);
+          this.setState({ username: event.target.value });
+        };
+        savePassword=()=>{
+          this.setState({ password: event.target.value });
+        }
         render() {
           return (
             <form
@@ -42,10 +51,14 @@
               onSubmit={this.handleSubmit}
             >
               Username:
-              <input type="text" name="username" ref={val=>this.username=val} />
+              <input type="text" name="username" onChange={this.saveUsername} />
               <br />
               Password:
-              <input type="password" name="password" ref={val=>this.password=val} />
+              <input
+                type="password"
+                name="password"
+                onChange={this.savePassword}
+              />
               <button>Login</button>
             </form>
           );

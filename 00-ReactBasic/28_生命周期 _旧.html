@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div {
+        margin: 10px;
+      }
+      button {
+        margin-right: 10px;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="test"></div>
+    <!-- 先引入核心库 React-->
+    <script src="./ReactJS/react.development.js"></script>
+    <!-- 用于支持react操作DOM  ReactDOM-->
+    <script src="./ReactJS/react-dom.development.js"></script>
+    <!-- 将jsx转成js -->
+    <script src="./ReactJS/babel.js"></script>
+    <!-- 此处一定要写babel jsx只能有一个根标签 标签必须闭合-->
+    <script type="text/babel">
+      class Count extends React.Component {
+        constructor(props) {
+          console.log("count-constructor");
+          super(props);
+        }
+        componentWillMount() {
+          console.log("count-componentWillMount");
+        }
+        componentDidMount() {
+          console.log("count-componentDidMount");
+        }
+        componentWillUnmount() {
+          console.log("count-componentWillUnmount");
+        }
+        //return false则不更新不调用render
+        shouldComponentUpdate() {
+          console.log("count-shouldComponentUpdate");
+          return true;
+        }
+        componentWillUpdate() {
+          console.log("count-componentWillUpdate");
+        }
+        componentDidUpdate() {
+          console.log("count-componentDidUpdate");
+        }
+        //第一次传的props不算
+        componentWillReceiveProps(){
+          console.log("count-componentWillReceiveProps");
+        }
+        render() {
+          console.log("count-render");
+          return (
+            <div>
+              <h2>this is count component, the car name is {this.props.carName}</h2>
+            </div>
+          );
+        }
+      }
+      class Home extends React.Component {
+        state={carName:"Volkswogan"}
+        changeCar=()=>{
+          this.setState({carName:"Toyota"})
+        }
+        componentWillMount() {
+          console.log("Home-componentWillMount");
+        }
+        componentDidMount() {
+          console.log("Home-componentDidMount");
+        }
+        componentWillUnmount() {
+          console.log("Home-componentWillUnmount");
+        }
+        //return false则不更新不调用render
+        shouldComponentUpdate() {
+          console.log("Home-shouldComponentUpdate");
+          return true;
+        }
+        componentWillUpdate() {
+          console.log("Home-componentWillUpdate");
+        }
+        componentDidUpdate() {
+          console.log("Home-componentDidUpdate");
+        }
+        render() {
+          console.log("Home-render");
+          return (
+            <div>
+              <h1>this is home page</h1>
+              <button onClick={this.changeCar}>change car</button>
+              <Count carName={this.state.carName} />
+            </div>
+          );
+        }
+      }
+      const root = ReactDOM.createRoot(document.querySelector("#test"));
+      root.render(<Home />);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .login-form {
+        padding: 30px;
+      }
+      input {
+        margin: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="test"></div>
+    <!-- 先引入核心库 React-->
+    <script src="./ReactJS/react.development.js"></script>
+    <!-- 用于支持react操作DOM  ReactDOM-->
+    <script src="./ReactJS/react-dom.development.js"></script>
+    <!-- 将jsx转成js -->
+    <script src="./ReactJS/babel.min.js"></script>
+    <!-- 此处一定要写babel jsx只能有一个根标签 标签必须闭合-->
+    <script type="text/babel">
+      class Life extends React.Component {
+        state = { opacity: 1 };
+        // 会在组件挂载后（插入 DOM 树中）立即调用
+        componentDidMount() {
+          this.timer = setInterval(() => {
+            console.log("@")
+            //获取opacity
+            let { opacity } = this.state;
+            opacity -= 0.1;
+            if (opacity <= 0) {
+              opacity = 1;
+            }
+            this.setState({ opacity });
+          }, 200);
+        }
+        //会在组件卸载及销毁之前直接调用
+        componentWillUnmount(){
+          //要清除定时器，不然组件已经卸载了，定时器还在执行
+          clearInterval(this.timer)
+        }
+        giveUp = () => {
+          //卸载root上的所有组件
+          root.unmount();
+        };
+        // render()调用时机：初始化 和 状态更新之后
+        render() {
+          /* setInterval(() => {
+            //获取opacity
+            let { opacity } = this.state;
+            opacity -= 0.1;
+            if (opacity <= 0) {
+              opacity = 1;
+            }
+            //一更新状态就会调render函数，这样会开很多定时器
+            this.setState({ opacity });
+          }, 200); */
+          return (
+            <div>
+              <h2 style={{ opacity: this.state.opacity }}>
+                How to do if you couldn't understand React?!!!!
+              </h2>
+              <button onClick={this.giveUp}>give up</button>
+            </div>
+          );
+        }
+      }
+
+      const root = ReactDOM.createRoot(document.querySelector("#test"));
+      root.render(<Life />);
+    </script>
+  </body>
+</html>

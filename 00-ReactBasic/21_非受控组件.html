@@ -32,7 +32,7 @@
         handleSubmit = (event) => {
           event.preventDefault();//阻止表单提交
           const {username, password} = this
-          alert(`${username}&${password}`)
+          alert(`${username.value}&${password.value}`)
         };
         render() {
           return (
