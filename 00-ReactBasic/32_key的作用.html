@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="test"></div>
+    <!-- 先引入核心库 React-->
+    <script src="./ReactJS/react.development.js"></script>
+    <!-- 用于支持react操作DOM  ReactDOM-->
+    <script src="./ReactJS/react-dom.development.js"></script>
+    <!-- 将jsx转成js -->
+    <script src="./ReactJS/babel.js"></script>
+    <!-- 此处一定要写babel jsx只能有一个根标签 标签必须闭合-->
+    <script type="text/babel">
+      /*
+        1.虚拟DOM中key的作用：
+          简单的说：key是虚拟DOM对象的标识，在更新显示时key起着极其重要的作用
+          详细的说：当状态中的数据发生变化时，react会根据【新数据】生成【新的虚拟DOM】，
+            随后React进行【新虚拟DOM】与【旧虚拟DOM】的diff比较，比较规则如下：
+              a，旧虚拟DOM中找到了与新虚拟DOM相同的key：
+                 若虚拟DOM中内容没变，直接使用之前的真实DOM
+                 若虚拟DOM中内容变了，则生成新的真实DOM，随后替换掉页面中之前的真实DOM
+
+              b，旧虚拟DOM中未找到与新虚拟DOM相同的key
+                  根据数据创建新的真实DOM，随后渲染到页面
+
+        2.用index作为key可能会引发的问题：
+          a，若对数据进行：逆序添加 逆序删除 等破坏顺序的操作
+              会产生没有必要的真实DOM更新 ==》 界面效果没问题，但效率低
+          b，如果结构中还包含输入类的DOM
+              会产生错误DOM更新 ==》界面有问题
+          c，注意！如果不存在对数据的逆序添加 逆序删除等破坏顺序操作
+            仅用于渲染列表展示，使用index作为key是没有问题的
+      */
+      class Person extends React.Component {
+        state = {
+          personLst: [
+            { id: 1, name: "Miranda", age: 18 },
+            { id: 2, name: "Jerry", age: 28 },
+            { id: 3, name: "Andrew", age: 33 },
+          ],
+        };
+        addPerson = () => {
+          const { personLst } = this.state;
+          const p = { id: personLst.length + 1, name: "Liz", age: 43 };
+
+          this.setState({ personLst: [p, ...personLst] });
+        };
+        render() {
+          return (
+            <div>
+              <h2>Person List</h2>
+              <button onClick={this.addPerson}>click to add a person</button>
+              <h3>use index as key</h3>
+              <ul>
+                {this.state.personLst.map((item,index) => {
+                  return (
+                    <li key={index}>
+                      Name: {item.name} &nbsp;&nbsp;&nbsp;&nbsp; Age:{item.age}
+                      <input type="text" />
+                    </li>
+                  );
+                })}
+              </ul>
+              <hr/>
+              <h3>use unique ID as key</h3>
+              <ul>
+                {this.state.personLst.map((item) => {
+                  return (
+                    <li key={item.id}>
+                      Name: {item.name} &nbsp;&nbsp;&nbsp;&nbsp; Age:{item.age}
+                      <input type="text" />
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          );
+        }
+      }
+
+      const root = ReactDOM.createRoot(document.querySelector("#test"));
+      root.render(<Person />);
+    </script>
+  </body>
+</html>

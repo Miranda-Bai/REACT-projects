@@ -1,0 +1,4 @@
+# https://www.robotstxt.org/robotstxt.html
+# 爬虫规则文件
+User-agent: *
+Disallow:

@@ -1,0 +1,5 @@
+/* 样式模块化，文件名加module */
+.title{
+    background-color: red;
+    font-size: 30px;
+}

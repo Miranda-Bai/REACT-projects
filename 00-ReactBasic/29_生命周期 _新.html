@@ -50,7 +50,7 @@
           //2.强制更新，不会走shouldComponentUpdate，直接走componentWillUpdate
           this.forceUpdate();
         };
-        //返回状态对象state 对象，或null
+        //返回状态对象 state 对象，或null
         //此方法适用于罕见的用例，即 state 的值在任何时候都取决于 props
         static getDerivedStateFromProps(props) {
           console.log("count-getDerivedStateFromProps", props);

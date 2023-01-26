@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="test"></div>
+    <!-- 先引入核心库 React-->
+    <script src="./ReactJS/react.development.js"></script>
+    <!-- 用于支持react操作DOM  ReactDOM-->
+    <script src="./ReactJS/react-dom.development.js"></script>
+    <!-- 将jsx转成js -->
+    <script src="./ReactJS/babel.js"></script>
+    <!-- 此处一定要写babel jsx只能有一个根标签 标签必须闭合-->
+    <script type="text/babel">
+      class Time extends React.Component {
+        state = { date: new Date() };
+
+        componentDidMount() {
+          this.timer = setInterval(() => {
+            this.setState({ date: new Date() });
+          }, 1000);
+        }
+        //在componentDidMount创建的东西，在组件卸载的时候一定要记得清除，否则项目大了之后会很占内存
+        componentWillUnmount() {
+          clearInterval(this.timer);
+        }
+        render() {
+          return (
+            <div>
+              <h1>hello</h1>
+              <input type="text" /> <br />
+              <span>
+                Now is {this.state.date.toTimeString()}
+                <input type="text" />{" "}
+              </span>
+            </div>
+          );
+        }
+      }
+
+      const root = ReactDOM.createRoot(document.querySelector("#test"));
+      root.render(<Time />);
+    </script>
+  </body>
+</html>
