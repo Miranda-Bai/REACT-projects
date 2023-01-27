@@ -1,0 +1,26 @@
+.jumbotron {
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  background-color: rgba(135, 142, 239, 0.25);
+}
+input[type="text"] {
+  width: 80%;
+  font-size: 1.125rem;
+  display: inline-block;
+  /* padding: 1rem 1.5rem; */
+  color: #313154;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+}
+.search-button {
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  color: #fff;
+  background-color: #3a82ee;
+  cursor: pointer;
+  box-shadow: 0px 0px 4px rgba(58, 130, 238, 0.75);
+  border: 2px solid #3a82ee;
+}

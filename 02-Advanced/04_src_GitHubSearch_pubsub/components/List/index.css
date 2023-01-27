@@ -1,0 +1,48 @@
+.row{
+    margin-right: 0;
+    margin-left: 0;
+}
+.album{
+    /* can be removed,juse added for demo purpose */
+    min-height: 50rem; 
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    background-color: #f7f7f7;
+}
+.card{
+    box-sizing: border-box;
+    float:left;
+    width: 33%;
+    padding: 0.75rem;
+    margin-bottom: 2rem;
+    border: 1px solid #efefef;
+    text-align: center;
+    margin-right: 2px;
+}
+.card:hover{
+    box-shadow: 0px 0px 10px rgba(58, 130, 238, 0.75);
+}
+.card > img{
+    margin-bottom: 0.75rem;
+    border-radius: 100px;
+}
+.card-text{
+    font-size: 85%;
+}
+.row h2{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(78, 143, 241);
+    text-shadow: 4px 4px 4px rgba(58, 130, 238, 0.75);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.row h3{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: red;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
