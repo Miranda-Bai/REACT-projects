@@ -1,0 +1,9 @@
+.row{
+    margin-bottom: 30px;
+}
+.list-group{
+    height:100%;
+}
+a{
+    text-decoration: none !important;
+}

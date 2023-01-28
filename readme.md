@@ -78,3 +78,33 @@ Fetch和Axios一样是对XmlHttpRequest的封装
 项目工程文件夹内会多出一个config文件夹
 # React路由
 npm install react-router-dom@5 //安装5版本
+## 路由组件与一般组件
+一般组件：写组件标签时传递了什么，就能收到什么
+`<Header />`
+路由组件：接收到三个固定属性
+`<Route path="/about" component={About} />`
+   
+    history: 
+        go: ƒ go(n)
+        goBack: ƒ goBack()
+        goForward: ƒ goForward()
+        push: ƒ push(path, state)
+        replace: ƒ replace(path, state)
+    location: 
+        pathname: "/home"
+        search: ""
+        state: undefined
+    match: 
+        params: {}
+        path: "/home"
+        url: "/home"
+
+## 嵌套路由
+1.注册子路由的时候要写上父路由的path值
+2.路由的匹配是按照注册路由的顺序进行的
+路由匹配是从第一次注册路由开始匹配，如果开启严格模式，会导致无法匹配二级路由。
+
+给<Link/>加上replace，表示浏览器使用replace模式，可以实现无痕浏览
+默认是push模式，会有history，可以前进或后退
+```<Link replace to={{pathname:"/home/message/detail", state:{id:item.id,title:item.title}}}>{item.title}</Link>
+```
