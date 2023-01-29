@@ -108,3 +108,28 @@ npm install react-router-dom@5 //安装5版本
 默认是push模式，会有history，可以前进或后退
 ```<Link replace to={{pathname:"/home/message/detail", state:{id:item.id,title:item.title}}}>{item.title}</Link>
 ```
+## BrowserRouter与HanshRouter的区别
+1. 底层原理不一样：
+        BrowserRouter使用的是H5的history API，不兼容IE9及以下版本
+        HashRouter使用的是URL的哈希值
+2. path表现形式不一样
+        BrowserRouter路径中没有#
+        HashRouter路径中包含#
+3. 刷新后对路由state参数的影响
+        BrowserRouter没有任何影响，因为state保持在history对象中
+        HashRouter刷新后会导致路由state参数的丢失
+4. 备注：HashRouter可以用于解决一些路径错误相关问题。
+# React UI组件库
+material-ui（国外）
+https://mui.com/
+ant-design（国内蚂蚁金服）
+https://ant.design/index-cn
+`npm install antd`
+antd5h后不需要单独引入样式
+# Redux
+https://redux.js.org/
+https://www.redux.org.cn/
+Redux是一个专门用于做状态管理的JS库（不是React插件库）
+作用：集中管理react应用中多个组件共享的状态
+ `npm install @reduxjs/toolkit`
+ Redux只管理共享数据，不更新页面
