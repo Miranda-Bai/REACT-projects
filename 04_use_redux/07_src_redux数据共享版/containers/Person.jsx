@@ -6,7 +6,7 @@ import { addPersonAction } from "../redux/actions/person";
 class Person extends Component {
   addPerson = () => {
     const name = this.nameNode.value;
-    const age = this.ageNode.value*1;
+    const age = this.ageNode.value;
     // console.log(name, age);
     const personObj = { id: nanoid(), name, age };
     // console.log(personObj);
@@ -18,7 +18,7 @@ class Person extends Component {
 
   };
   render() {
-    console.log("person component:", this.props);
+    // console.log("person component:", this.props);
     const {personLst,count} = this.props 
     return (
       <div>

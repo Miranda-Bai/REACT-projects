@@ -17,14 +17,14 @@ class Count extends Component {
     // console.log(this.props);
     //1.获取用户输入
     let { value } = this.selectedNumber;
-    this.props.increment(value * 1);
+    this.props.jia(value * 1);
   };
 
   //减法
   decrement = () => {
     //1.获取用户输入
     let { value } = this.selectedNumber;
-    this.props.decrement(value * 1);
+    this.props.jian(value * 1);
   };
 
   //当前为奇数再加
@@ -35,7 +35,7 @@ class Count extends Component {
     let number  = this.props.count;
     //3.判断是否为奇数
     if (number % 2 === 1) {
-      this.props.increment(value * 1);
+      this.props.jia(value * 1);
     }
   };
 
@@ -43,7 +43,7 @@ class Count extends Component {
   incrementAsync = () => {
     //1.获取用户输入
     let { value } = this.selectedNumber;
-    this.props.incrementAsync(value*1,2000)
+    this.props.asyncCre(value*1,2000)
   };
 
   render() {
@@ -98,9 +98,9 @@ export default connect(
 	) */
 	//精简的写法，如下：备注:connect底层会将精简版所写的对象，加工成复杂写法
 	{
-		increment:createIncrementAction,
-		decrement:createDecrementAction,
-		incrementAsync:createIncrementAsyncAction,
+		jia:createIncrementAction,
+		jian:createDecrementAction,
+		asyncCre:createIncrementAsyncAction,
 	}
 )(Count)
 

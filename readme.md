@@ -133,3 +133,20 @@ Redux是一个专门用于做状态管理的JS库（不是React插件库）
 作用：集中管理react应用中多个组件共享的状态
  `npm install @reduxjs/toolkit`
  Redux只管理共享数据，不更新页面
+# 纯函数
+1. 一类特别的函数：只要是同样的输入（实参），必定得到同样的输出（返回）
+2. 必须遵守以下一些约束
+        不得改写参数数据
+        不会产生任何副作用，例如网络请求，输入和输出设备
+        不能调用Date.now或者Math.random等不纯的方法
+3. redux的reducer函数必须是纯函数
+# 打包项目
+npm run build
+全局安装serve库
+npm i serve -g
+
+需要你用 root权限进行安装才行
+sudo npm i serve -g
+然后输入密码 才行
+
+serve build 运行打包后的项目，相当于把自己的电脑作为服务器
