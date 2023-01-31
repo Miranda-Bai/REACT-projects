@@ -77,7 +77,8 @@ Fetch和Axios一样是对XmlHttpRequest的封装
 `$ npm run eject`
 项目工程文件夹内会多出一个config文件夹
 # React路由
-npm install react-router-dom@5 //安装5版本
+https://reactrouter.com/en/main
+> npm install react-router-dom@5 //安装5版本
 ## 路由组件与一般组件
 一般组件：写组件标签时传递了什么，就能收到什么
 `<Header />`
@@ -150,3 +151,8 @@ sudo npm i serve -g
 然后输入密码 才行
 
 serve build 运行打包后的项目，相当于把自己的电脑作为服务器
+# 组件间通信方式总结
+1. 父子组件 props
+2. 兄弟组件 消息订阅-发布，集中式管理
+3. 祖孙组件（跨级组件）：
+        消息订阅-发布，集中式管理，conText（生产者-消费者模式/Provider-Consumer）开发中用的少，封装插件用的多
